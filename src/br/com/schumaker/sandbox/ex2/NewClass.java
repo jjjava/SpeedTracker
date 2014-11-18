@@ -19,8 +19,11 @@ public class NewClass {
         final int BUFFER_SIZE = 1024; // size of the buffer
         byte[] data = new byte[BUFFER_SIZE]; // buffer
         BufferedInputStream in = new BufferedInputStream(
-                new URL(
-                        "http://kernel.ubuntu.com/~kernel-ppa/mainline/v2.6.15/linux-headers-2.6.15-020615_2.6.15-020615_all.deb")
+//                new URL(
+//                        "http://kernel.ubuntu.com/~kernel-ppa/mainline/v2.6.15/linux-headers-2.6.15-020615_2.6.15-020615_all.deb")
+//                        .openStream());
+         new URL(
+                        "http://miaibv91.mia.michelin.com:7032/reports/ViewData/CTG/encours/RWH_ART.L1411166565890.20141116210516")
                         .openStream());
         int dataRead = 0; // data read in each try
         long startTime = System.nanoTime(); // starting time of download
