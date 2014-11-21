@@ -1,10 +1,10 @@
-
 package br.com.schumaker.sandbox.ex3;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  *
@@ -14,29 +14,24 @@ public class NewClass {
 
     volatile long totalDownloaded;
     long downloadStartTime;
+    private String path;
 
     public NewClass() throws MalformedURLException, IOException {
+        final int BUFFER_SIZE = 1024; // size of the buffer
+        byte[] data = new byte[BUFFER_SIZE]; // buffer
         totalDownloaded = 0L;
         downloadStartTime = System.currentTimeMillis();
         int val;
-        String buffer;
-        BufferedInputStream bis = new BufferedInputStream(
-                //                new URL(
-                //                        "http://kernel.ubuntu.com/~kernel-ppa/mainline/v2.6.15/linux-headers-2.6.15-020615_2.6.15-020615_all.deb")
-                //                        .openStream());
-                new URL(
-                        "http://miaibv91.mia.michelin.com:7032/reports/ViewData/SPD/encours/RPR_PDD_GLO.L1411185161096.20141118010442")
-                .openStream());
-
-        while ((val = bis.read(buffer, 0, 1024)) > 0) {
-           // out.write(buffer, 0, val);
+        path = "http://miaibv91.mia.michelin.com:7032/reports/ExtractsTWS/DumpJobs/Dump_jobs_RCTGADS0_110923_0700.txt"; 
+        BufferedInputStream bis = new BufferedInputStream(new URL(path).openStream());
+        URLConnection conn = new URL(path).openConnection();
+        System.out.println("size"+conn.getContentLength());
+        while ((val = bis.read(data, 0, 1024)) > 0) {
+            // out.write(buffer, 0, val);
             totalDownloaded += val;
-            fileSize -= val;
-            if (fileSize < 1024) {
-                val = (int) fileSize;
-            }
+            long elapsedTime = System.currentTimeMillis() - downloadStartTime;
+            System.out.println("rate:" + (1000f * totalDownloaded / elapsedTime));
         }
-
     }
 
     public float getDownloadSpeed() {
@@ -44,6 +39,7 @@ public class NewClass {
         return 1000f * totalDownloaded / elapsedTime;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        NewClass nc = new NewClass();
     }
 }

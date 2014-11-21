@@ -13,7 +13,7 @@ public class BwCalc {
         public float calculateDownloadRate(int waitTime) throws Exception {
             int bufferSize = 1;
             byte[] data = new byte[bufferSize]; // buffer
-            BufferedInputStream in = new BufferedInputStream(new URL("https://www.google.co.in/").openStream());
+            BufferedInputStream in = new BufferedInputStream(new URL("http://miaibv91.mia.michelin.com:7032/reports/ViewData/RWH/archiveRWH/RAG.F4355660.20141120013244").openStream());
             int count = 0;
             long startedAt = System.currentTimeMillis();
             long stoppedAt;
@@ -32,7 +32,7 @@ public class BwCalc {
         }
 
         public float calculateAverageDownloadRate() throws Exception {
-            int times[] = {100, 200, 300, 400, 500};
+            int times[] = {100, 200, 300, 400, 500,600,700,800,900,1000};
             float bw = 0, curBw;
             int i = 0, len = times.length;
             while (i < len) {
